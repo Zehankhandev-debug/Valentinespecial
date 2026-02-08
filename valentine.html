@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Be My Valentine? 💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fire-flicker {
+            0%, 100% { 
+                transform: translateY(0) scaleY(1) scaleX(1);
+                opacity: 1;
+            }
+            25% { 
+                transform: translateY(-5px) scaleY(1.1) scaleX(0.95);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateY(-10px) scaleY(1.2) scaleX(0.9);
+                opacity: 0.95;
+            }
+            75% { 
+                transform: translateY(-3px) scaleY(1.05) scaleX(0.98);
+                opacity: 0.85;
+            }
+        }
+        
+        @keyframes flame-rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes burning-heart {
+            0%, 100% { 
+                transform: scale(1) rotate(-2deg);
+                filter: drop-shadow(0 0 20px #ff0040) brightness(1.2);
+            }
+            50% { 
+                transform: scale(1.15) rotate(2deg);
+                filter: drop-shadow(0 0 40px #ff0040) brightness(1.5);
+            }
+        }
+        
+        @keyframes intense-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 0, 64, 0.6), 
+                           0 0 60px rgba(255, 100, 0, 0.4),
+                           inset 0 0 30px rgba(255, 0, 64, 0.2);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 60px rgba(255, 0, 64, 1), 
+                           0 0 120px rgba(255, 100, 0, 0.8),
+                           inset 0 0 60px rgba(255, 0, 64, 0.4);
+            }
+        }
+        
+        @keyframes explosion {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(2) rotate(180deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(4) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes shake-intense {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-10px, -5px) rotate(-2deg); }
+            20% { transform: translate(10px, 5px) rotate(2deg); }
+            30% { transform: translate(-10px, 3px) rotate(-1deg); }
+            40% { transform: translate(10px, -3px) rotate(1deg); }
+            50% { transform: translate(-8px, 2px) rotate(-2deg); }
+            60% { transform: translate(8px, -2px) rotate(2deg); }
+            70% { transform: translate(-5px, 5px) rotate(-1deg); }
+            80% { transform: translate(5px, -5px) rotate(1deg); }
+            90% { transform: translate(-3px, 3px) rotate(-1deg); }
+        }
+        
+        @keyframes lava-bubble {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes spin-3d {
+            0% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+            100% { transform: perspective(1000px) rotateY(360deg) rotateX(360deg); }
+        }
+        
+        @keyframes text-fire {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 30px #ff0040,
+                    0 0 40px #ff0040,
+                    0 0 70px #ff0040,
+                    0 0 80px #ff0040,
+                    0 0 100px #ff0040;
+            }
+            50% {
+                text-shadow: 
+                    0 0 5px #fff,
+                    0 0 10px #ff6600,
+                    0 0 15px #ff6600,
+                    0 0 20px #ff0040,
+                    0 0 35px #ff0040,
+                    0 0 40px #ff0040,
+                    0 0 50px #ff0040;
+            }
+        }
+        
+        @keyframes wild-gradient {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes loader-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        .fire-bg {
+            background: linear-gradient(180deg, 
+                #0a0000 0%, 
+                #1a0000 20%, 
+                #4a0000 40%, 
+                #8b0000 60%, 
+                #ff0040 80%, 
+                #ff6600 100%);
+            background-size: 400% 400%;
+            animation: wild-gradient 10s ease infinite;
+        }
+        
+        .flame {
+            position: absolute;
+            bottom: 0;
+            width: 20px;
+            height: 40px;
+            background: linear-gradient(to top, #ff0040, #ff6600, transparent);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: fire-flicker 0.3s ease-in-out infinite;
+            filter: blur(2px);
+        }
+        
+        .lava-bubble {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ff6600, #ff0040);
+            border-radius: 50%;
+            animation: lava-bubble 4s ease-in-out infinite;
+            filter: blur(3px);
+            pointer-events: none;
+        }
+        
+        .burning-border {
+            position: relative;
+            overflow: visible;
+        }
+        
+        .burning-border::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #ff0040, #ff6600, #ff0040, #ff6600);
+            background-size: 400% 400%;
+            animation: wild-gradient 3s ease infinite;
+            border-radius: 2rem;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.8;
+        }
+        
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, #0a0000, #1a0000, #4a0000);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .preloader.hide {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+        
+        .loader-heart {
+            font-size: 80px;
+            animation: burning-heart 1s ease-in-out infinite;
+        }
+        
+        .loader-fire {
+            font-size: 60px;
+            animation: loader-spin 2s linear infinite;
+        }
+        
+        .loader-text {
+            color: #ff6600;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: text-fire 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="fire-bg min-h-screen flex items-center justify-center p-0 md:p-4 overflow-hidden relative">
+    
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader-heart">❤️‍🔥</div>
+        <div class="loader-fire">🔥</div>
+        <div class="loader-text">Pyaar Load Ho Raha Hai...</div>
+    </div>
+    <!-- Lava bubbles -->
+    <div id="lava-container"></div>
+    
+    <!-- Flame border effect container -->
+    <div id="flames-container" class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none overflow-hidden"></div>
+    
+    <div id="proposal-card" class="burning-border bg-gradient-to-br from-black via-red-950 to-black backdrop-blur-lg rounded-none md:rounded-3xl shadow-2xl p-6 md:p-12 w-full text-center transform transition-all relative border-0 md:border-4 border-orange-600 overflow-y-auto max-w-full md:max-w-2xl h-[100vh] md:h-auto md:max-h-[90vh]" style="animation: bounce-in 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);">
+        
+        <!-- Fire particles around the card -->
+        <div class="absolute -top-10 left-1/2 -translate-x-1/2 text-8xl" style="animation: burning-heart 2s ease-in-out infinite;">
+            🔥
+        </div>
+        
+        <!-- Love History Timeline -->
+        <div class="mb-6 p-4 md:p-6 bg-gradient-to-r from-red-900/50 via-orange-900/50 to-red-900/50 rounded-2xl border-2 border-orange-500/50 relative z-10">
+            <h2 class="text-2xl md:text-4xl font-black text-orange-400 mb-3 md:mb-4" style="text-shadow: 0 0 20px rgba(255, 100, 0, 0.8);">
+                ✨ Hamari Pyaar Ki Kahaani ✨
+            </h2>
+            <div class="space-y-2 md:space-y-3 text-left max-w-xl mx-auto">
+                <div class="flex items-center gap-2 md:gap-3">
+                    <span class="text-3xl md:text-4xl">📚</span>
+                    <div>
+                        <p class="text-lg md:text-xl font-bold text-yellow-400">10th Class - Jahan Sab Shuru Hua</p>
+                        <p class="text-xs md:text-sm text-orange-300">Woh din jab hamari dil ki dosti bani...</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 md:gap-3">
+                    <span class="text-3xl md:text-4xl">⏳</span>
+                    <div>
+                        <p class="text-lg md:text-xl font-bold text-yellow-400">Poora Ek Decade Saath!</p>
+                        <p class="text-xs md:text-sm text-orange-300">10 saal pyaar, hansi aur anmol yaadein ke saath</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 md:gap-3">
+                    <span class="text-3xl md:text-4xl">💖</span>
+                    <div>
+                        <p class="text-lg md:text-xl font-bold text-yellow-400">2025 - Abhi Bhi Strong!</p>
+                        <p class="text-xs md:text-sm text-orange-300">Aur hamesha ke liye...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 md:mt-4 text-xl md:text-2xl font-black text-white" style="animation: text-fire 2s ease-in-out infinite;">
+                🔥 10 SAAL KA JALWA WALA PYAAR 🔥
+            </div>
+        </div>
+        
+        <!-- Multiple burning hearts -->
+        <div class="flex justify-center gap-4 md:gap-6 mb-6 md:mb-8 relative z-10">
+            <div class="text-5xl md:text-6xl" style="animation: burning-heart 1.5s ease-in-out infinite;">❤️‍🔥</div>
+            <div class="text-6xl md:text-7xl" style="animation: burning-heart 1.8s ease-in-out infinite; animation-delay: 0.3s;">🔥</div>
+            <div class="text-5xl md:text-6xl" style="animation: burning-heart 1.5s ease-in-out infinite; animation-delay: 0.6s;">❤️‍🔥</div>
+        </div>
+        
+        <!-- Question with fire effect -->
+        <h1 class="text-3xl md:text-6xl font-black mb-4 md:mb-6 text-white relative z-10" style="animation: text-fire 2s ease-in-out infinite;">
+            Kya Tum Meri Valentine Banogi?
+        </h1>
+        
+        <p class="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-orange-400 relative z-10">
+            10 saal baad bhi, tum mera dil jalati ho! 🔥💖
+        </p>
+        
+        <p class="text-base md:text-xl text-red-300 mb-6 md:mb-8 font-medium relative z-10">
+            Hamara pyaar har saal aur zyada chamakta hai! ✨
+        </p>
+        
+        <!-- Buttons container -->
+        <div class="flex flex-row gap-4 md:gap-6 justify-center items-center mt-8 md:mt-12 mb-8 relative z-10">
+            <!-- Yes Button with intense fire effect -->
+            <button id="yesBtn" class="relative bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 hover:from-red-700 hover:via-orange-600 hover:to-yellow-600 text-white font-black py-4 px-8 md:py-6 md:px-12 rounded-full text-xl md:text-3xl transform hover:scale-110 transition-all border-4 border-yellow-300" style="animation: intense-pulse 2s ease-in-out infinite; box-shadow: 0 0 40px rgba(255, 100, 0, 0.8);">
+                <span class="relative z-10">🔥 HAAN! 🔥</span>
+            </button>
+            
+            <!-- No Button - stays in place, just changes text -->
+            <button id="noBtn" class="bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-gray-300 font-black py-4 px-8 md:py-6 md:px-12 rounded-full text-xl md:text-3xl transform transition-all shadow-2xl border-4 border-gray-600">
+                <span id="noBtnText">❄️ Nahi ❄️</span>
+            </button>
+        </div>
+        
+        <p id="hintText" class="text-base md:text-lg text-yellow-400 font-bold mt-6 md:mt-8 mb-4 opacity-0 transition-opacity relative z-10">
+            🔥 "Nahi" kehne se kya fayda? Dil toh "Haan" keh raha hai! 😏
+        </p>
+    </div>
+    
+    <!-- Success message (hidden initially) -->
+    <div id="successMessage" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="burning-border bg-gradient-to-br from-black via-red-900 to-black rounded-3xl p-8 md:p-12 max-w-lg text-center transform scale-0 transition-transform duration-500 shadow-2xl border-8 border-orange-500 max-h-[90vh] overflow-y-auto" id="successCard">
+            <div class="text-7xl md:text-9xl mb-6" style="animation: explosion 2s ease-out infinite;">💥🔥❤️‍🔥🔥💥</div>
+            <h2 class="text-5xl md:text-7xl font-black text-white mb-6" style="animation: text-fire 1.5s ease-in-out infinite;">
+                YAAASSS! 🔥
+            </h2>
+            <p class="text-3xl md:text-4xl font-bold text-orange-400 mb-4">
+                Hamara pyaar abhi BLAST ho gaya! 💥
+            </p>
+            
+            <!-- Celebration of 10 years -->
+            <div class="my-6 p-4 bg-gradient-to-r from-yellow-900/50 to-orange-900/50 rounded-xl border-2 border-yellow-500/50">
+                <p class="text-4xl md:text-5xl font-black text-yellow-300 mb-3">
+                    🎉 10 SAAL! 🎉
+                </p>
+                <p class="text-xl md:text-2xl text-orange-300 mb-2">
+                    10th Class se lekar Hamesha Tak
+                </p>
+                <p class="text-lg md:text-xl text-red-300">
+                    Ek poori dahayi kamaal ki yaadein ke saath!
+                </p>
+            </div>
+            
+            <p class="text-2xl md:text-3xl font-semibold text-red-400 mb-4">
+                Tumne meri rooh ko aag laga di! 🔥❤️
+            </p>
+            <p class="text-xl md:text-2xl text-orange-300 mb-6">
+                Aur bhi kayi decades saath rehne ke liye! 💕✨
+            </p>
+            <div class="flex justify-center gap-4 text-5xl md:text-6xl">
+                <span style="animation: burning-heart 1s ease-in-out infinite; animation-delay: 0s;">❤️‍🔥</span>
+                <span style="animation: burning-heart 1s ease-in-out infinite; animation-delay: 0.2s;">🔥</span>
+                <span style="animation: burning-heart 1s ease-in-out infinite; animation-delay: 0.4s;">❤️‍🔥</span>
+                <span style="animation: burning-heart 1s ease-in-out infinite; animation-delay: 0.6s;">🔥</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hide preloader after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hide');
+            }, 2000); // Show for 2 seconds
+        });
+        
+        const noBtn = document.getElementById('noBtn');
+        const noBtnText = document.getElementById('noBtnText');
+        const yesBtn = document.getElementById('yesBtn');
+        const hintText = document.getElementById('hintText');
+        const successMessage = document.getElementById('successMessage');
+        const successCard = document.getElementById('successCard');
+        const proposalCard = document.getElementById('proposal-card');
+        
+        let noBtnAttempts = 0;
+        const funnyMessages = [
+            "❄️ Ruko ruko! Pakka? ❄️",
+            "🔥 Soch lo phir se! 🔥",
+            "💨 Arre yaar seriously? 💨",
+            "😈 Galat button dab raha hai! 😈",
+            "🌪️ Nahi matlab Haan hi hota hai! 🌪️",
+            "⚡ Dil sun raha hai tumhara? ⚡",
+            "🎯 Last chance, soch lo! 🎯",
+            "🏃‍♂️ Ab toh Haan bol do! 🔥",
+            "💥 Please yaar! 💥",
+            "🚀 Ek baar aur socho! 🚀"
+        ];
+        
+        // Create flames at bottom
+        function createFlames() {
+            const flamesContainer = document.getElementById('flames-container');
+            for (let i = 0; i < 50; i++) {
+                const flame = document.createElement('div');
+                flame.className = 'flame';
+                flame.style.left = (i * 2) + '%';
+                flame.style.animationDelay = Math.random() + 's';
+                flame.style.animationDuration = (Math.random() * 0.3 + 0.2) + 's';
+                flame.style.height = (Math.random() * 40 + 30) + 'px';
+                flamesContainer.appendChild(flame);
+            }
+        }
+        
+        createFlames();
+        
+        // Create lava bubbles
+        function createLavaBubbles() {
+            const lavaContainer = document.getElementById('lava-container');
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'lava-bubble';
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.animationDelay = Math.random() * 4 + 's';
+                bubble.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                lavaContainer.appendChild(bubble);
+            }
+        }
+        
+        createLavaBubbles();
+        setInterval(() => {
+            if (document.getElementById('lava-container').children.length < 15) {
+                createLavaBubbles();
+            }
+        }, 4000);
+        
+        // No button - just changes text, doesn't move
+        noBtn.addEventListener('mouseenter', changeNoButtonText);
+        noBtn.addEventListener('click', changeNoButtonText);
+        noBtn.addEventListener('touchstart', changeNoButtonText);
+        
+        function changeNoButtonText(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            noBtnAttempts++;
+            
+            // Shake the proposal card
+            proposalCard.style.animation = 'shake-intense 0.6s';
+            setTimeout(() => {
+                proposalCard.style.animation = '';
+            }, 600);
+            
+            // Create explosion effect at button location
+            const rect = noBtn.getBoundingClientRect();
+            createExplosion(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            
+            // Show hint after first attempt
+            if (noBtnAttempts === 1) {
+                hintText.classList.remove('opacity-0');
+            }
+            
+            // Change button text (stays in place!)
+            if (noBtnAttempts <= funnyMessages.length) {
+                noBtnText.textContent = funnyMessages[noBtnAttempts - 1];
+            } else {
+                noBtnText.textContent = funnyMessages[funnyMessages.length - 1];
+            }
+            
+            // Shake the No button
+            noBtn.style.animation = 'shake-intense 0.5s';
+            setTimeout(() => {
+                noBtn.style.animation = '';
+            }, 500);
+            
+            // Grow Yes button to make it more attractive
+            const yesSize = 1 + (noBtnAttempts * 0.1);
+            yesBtn.style.transform = `scale(${yesSize})`;
+            
+            // Add more fire to Yes button
+            yesBtn.style.boxShadow = `0 0 ${40 + noBtnAttempts * 10}px rgba(255, 100, 0, ${0.8 + noBtnAttempts * 0.05})`;
+        }
+        
+        // Create explosion effect
+        function createExplosion(x, y) {
+            const explosionEmojis = ['💥', '🔥', '💨', '⚡', '✨'];
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.textContent = explosionEmojis[Math.floor(Math.random() * explosionEmojis.length)];
+                particle.style.position = 'fixed';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.fontSize = '36px';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                
+                const angle = (Math.PI * 2 * i) / 12;
+                const velocity = 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                particle.style.animation = 'none';
+                document.body.appendChild(particle);
+                
+                let pos = 0;
+                const animate = () => {
+                    pos += 5;
+                    particle.style.transform = `translate(${tx * pos / 20}px, ${ty * pos / 20}px) scale(${1 - pos / 100}) rotate(${pos * 10}deg)`;
+                    particle.style.opacity = 1 - pos / 100;
+                    if (pos < 100) requestAnimationFrame(animate);
+                    else particle.remove();
+                };
+                animate();
+            }
+        }
+        
+        // Yes button click - EXPLOSION!
+        yesBtn.addEventListener('click', () => {
+            noBtn.style.display = 'none';
+            
+            yesBtn.style.transform = 'scale(2)';
+            yesBtn.innerHTML = '<span style="animation: explosion 0.5s ease-out;">💥🔥💥</span>';
+            
+            createMassiveExplosion();
+            
+            setTimeout(() => {
+                successMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    successCard.style.transform = 'scale(1)';
+                    createFireworks();
+                    createFireRain();
+                }, 100);
+            }, 800);
+        });
+        
+        // Create massive explosion
+        function createMassiveExplosion() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createExplosion(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 50);
+            }
+        }
+        
+        // Enhanced fireworks
+        function createFireworks() {
+            const fireworkEmojis = ['💥', '🔥', '✨', '⭐', '💫', '🌟', '❤️‍🔥', '💖'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.textContent = fireworkEmojis[Math.floor(Math.random() * fireworkEmojis.length)];
+                    firework.style.position = 'fixed';
+                    firework.style.left = Math.random() * 100 + 'vw';
+                    firework.style.top = Math.random() * 100 + 'vh';
+                    firework.style.fontSize = (Math.random() * 50 + 40) + 'px';
+                    firework.style.pointerEvents = 'none';
+                    firework.style.animation = 'explosion 1s ease-out';
+                    firework.style.zIndex = '999';
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => firework.remove(), 1000);
+                }, i * 100);
+            }
+        }
+        
+        // Create fire rain
+        function createFireRain() {
+            setInterval(() => {
+                const fire = document.createElement('div');
+                fire.textContent = ['🔥', '❤️‍🔥', '💥'][Math.floor(Math.random() * 3)];
+                fire.style.position = 'fixed';
+                fire.style.left = Math.random() * 100 + 'vw';
+                fire.style.top = '-50px';
+                fire.style.fontSize = (Math.random() * 30 + 25) + 'px';
+                fire.style.pointerEvents = 'none';
+                fire.style.animation = 'flame-rise 3s linear reverse';
+                fire.style.zIndex = '1';
+                document.body.appendChild(fire);
+                
+                setTimeout(() => fire.remove(), 3000);
+            }, 200);
+        }
+        
+        // Floating fire hearts
+        function createFloatingFire() {
+            const fires = ['🔥', '❤️‍🔥', '💥', '✨'];
+            const fire = document.createElement('div');
+            fire.textContent = fires[Math.floor(Math.random() * fires.length)];
+            fire.style.position = 'fixed';
+            fire.style.left = Math.random() * 100 + 'vw';
+            fire.style.bottom = '-50px';
+            fire.style.fontSize = (Math.random() * 35 + 30) + 'px';
+            fire.style.opacity = '0.8';
+            fire.style.pointerEvents = 'none';
+            fire.style.animation = 'flame-rise ' + (Math.random() * 3 + 3) + 's linear';
+            fire.style.zIndex = '1';
+            document.body.appendChild(fire);
+            
+            setTimeout(() => fire.remove(), 6000);
+        }
+        
+        setInterval(createFloatingFire, 400);
+        
+        // Cursor fire trail
+        let lastCursorTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastCursorTime > 50) {
+                lastCursorTime = now;
+                const trail = document.createElement('div');
+                trail.textContent = '🔥';
+                trail.style.position = 'fixed';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.fontSize = '20px';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '999';
+                trail.style.animation = 'flame-rise 1s ease-out';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => trail.remove(), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
